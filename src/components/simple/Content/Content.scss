@@ -1,0 +1,20 @@
+.movies {
+	margin-top: 50px;
+	width: 100%;
+	display: grid;
+	height: 99vh;
+	margin-right: 80px;
+	&_card {
+		display: grid;
+		grid-template-columns: repeat(4,4fr);
+		grid-template-rows: 3fr;
+		height: 300px;
+		margin: 0;
+		margin-left: 150px;
+		padding-right: 50px;
+	}
+}
+.card {
+	width: 300px;
+	margin-bottom: 50px;
+}
