@@ -18,7 +18,7 @@ export const Header: FunctionComponent<HeaderProps> = (props) => {
 					<HeaderList />
 				</div>
 				<div className="header__search">
-					<HeaderSearchBtn />
+					<div className='header__search_btn'><HeaderSearchBtn /></div>
 					<HeaderSearch />
 				</div>
 
