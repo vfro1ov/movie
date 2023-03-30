@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import { API_KEY, API_URL } from '../../../api/api';
+import { API_KEY } from '../../../constant/api';
 import axios from 'axios';
 import { MovieCard } from './MovieCard/MovieCard';
-import './Content.scss'
+import './Content.scss';
 
 export const Content: FunctionComponent<ContentProps> = (props) => {
 	const {} = props;
@@ -10,9 +10,11 @@ export const Content: FunctionComponent<ContentProps> = (props) => {
 
 	return (
 		<>
-		<div className="movies">
-		<div className="movies_card"><MovieCard /></div>
-		</div>
+			<div className="movies">
+				<div className="movies_card">
+					<MovieCard />
+				</div>
+			</div>
 		</>
 	);
 };

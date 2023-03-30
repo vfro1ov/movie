@@ -1,61 +1,44 @@
-import { FunctionComponent } from 'react';
+import axios from 'axios';
+import { FunctionComponent, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { API_KEY, API_MOVIE } from '../../../../constant/api';
 
 export const MovieCard: FunctionComponent<MovieCardProps> = (props) => {
 	const {} = props;
-	const card = [
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the carcontent.',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the card content.,',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the card content.',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the cardcontent.',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the cardcontent.',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-		{
-			title: 'Человек Паук',
-			text: 'Some quick example text to build on the card title and make up the bulk of the cardcontent.',
-			src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRauSAf9j2NtxbW6Vzv2oX5qYXStZJxabsWyw&usqp=CAU',
-		},
-	];
+	const [movie,setMovie] = useState([])
+
+	useEffect(() => {
+		axios.get(API_MOVIE,{headers:{'x-api-key':API_KEY,"accept": "application/json"}})
+		.then(res =>{
+			console.log(res.data.docs,'res')
+			const movieList = res.data.docs.map(({alternativeName,logo,url,name,year,id})=> {
+				return {
+					alternativeName,
+					logo,
+					name,
+					year,
+					url,
+					id
+				}
+			})
+		setMovie(movieList)
+		}).catch(function (error) {
+			// handle error
+			console.log(error);
+		})
+	},[setMovie])
 	return (
 		<>
-			{card.map((card) => {
+			{movie.map((movie) => {
 				return (
 					<div className="card">
-						<img src={card.src} className="card-img-top" alt="..." />
+						<img src={movie.logo.url} className="card-img-top" alt="{movie.id}" />
 						<div className="card-body">
-							<h5 className="card-title">{card.title}</h5>
-							<p className="card-text">{card.text}</p>
-							<a href="/" className="btn btn-primary">
+							<h5 className="card-title">{movie.name}</h5>
+							<p className="card-text">{movie.shortDescription}</p>
+							<Link to={`/film`} className="btn btn-primary">
 								Go somewhere
-							</a>
+							</Link>
 						</div>
 					</div>
 				);
